@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b3538e848c4e06345867aab8ba2b3fbc
+timeCreated: 1455853956
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - controller: {fileID: 199812, guid: a851e83b35059544e874ff3b1149eb8b, type: 2}
+  - Blood: {fileID: 100000, guid: 59516632d108cc240a7663455239df69, type: 2}
+  - Player: {fileID: 154824, guid: 34e3f719a2142d54e95d8363a21d5ce2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
