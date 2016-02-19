@@ -18,5 +18,6 @@ public class Spawner : MonoBehaviour {
 		GameObject cas = (GameObject)Instantiate(Enemy, this.gameObject.transform.position, this.gameObject.transform.rotation);
 		cas.gameObject.GetComponent<EnemyScript> ().controller = mainController;
 
+
 	}
 }
