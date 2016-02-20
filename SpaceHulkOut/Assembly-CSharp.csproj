@@ -55,6 +55,7 @@
      <Compile Include="Assets\Imports\Elementals\Scripts\TestParticles.cs" />
      <Compile Include="Assets\Imports\GruffyModularEnvironmentsV1.0_3Pack\Scripts\RotateObjectAroundAPoint.cs" />
      <Compile Include="Assets\Player.cs" />
+     <Compile Include="Assets\RadarSystem.cs" />
      <Compile Include="Assets\Spawner.cs" />
      <Compile Include="Assets\_Target &amp; HUD Effect V1\Plugins\HTSequence.cs" />
      <Compile Include="Assets\_Target &amp; HUD Effect V1\Plugins\HTSpriteSequencer.cs" />
