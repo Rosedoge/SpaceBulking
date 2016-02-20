@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour {
 		gameObject.GetComponent<NavMeshAgent> ().destination = controller.gameObject.GetComponent<GameController>().Player.transform.position;
 	}
 	void OnParticleCollision(GameObject particle){
-		Debug.Log ("Particles!");
+		
 		Health -= 1;
 		GameObject cas = (GameObject)Instantiate(Blood, particle.gameObject.transform.position, particle.gameObject.transform.rotation);
 
@@ -25,8 +25,8 @@ public class EnemyScript : MonoBehaviour {
 
 			Destroy (col.gameObject);
 		}
-
 	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -34,6 +34,8 @@ public class EnemyScript : MonoBehaviour {
 		//	Debug.Log ("Dies??");
 			controller.gameObject.GetComponent<GameController> ().Spawn ();
 			controller.gameObject.GetComponent<GameController> ().killed += 1;
+			controller.gameObject.GetComponent<GameController> ().enemies.Remove (this.gameObject);
+			gameObject.GetComponent<BoxCollider> ().enabled = false;
 			Destroy (this.gameObject);
 
 		}

@@ -17,6 +17,7 @@ public class Spawner : MonoBehaviour {
 	public void SpawnEnemy(){
 		GameObject cas = (GameObject)Instantiate(Enemy, this.gameObject.transform.position, this.gameObject.transform.rotation);
 		cas.gameObject.GetComponent<EnemyScript> ().controller = mainController;
+		mainController.gameObject.GetComponent<GameController> ().enemies.Add (cas.gameObject);
 
 
 	}

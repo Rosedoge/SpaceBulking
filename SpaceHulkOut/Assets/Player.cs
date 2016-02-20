@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class Player : MonoBehaviour {
 	[SerializeField] GameObject Gun;
 	[SerializeField] GameObject GunEnd;
@@ -11,8 +11,13 @@ public class Player : MonoBehaviour {
 	public GameObject Player4Nav;
 	public GameObject Loc2;
 	public GameObject Flamethrower;
+	public GameObject Controller;
+	Transform closestEnemy;
 	int GunNum = 0; //0 = mg 1 = flamethrower :^)
 	//bool shooting = false;
+
+	//this.gameObject.GetComponent<HudController>()
+
 
 	MeshRenderer[] FlashKids;
 	GameObject casingClone;// = Casing.gameObject;
@@ -23,8 +28,43 @@ public class Player : MonoBehaviour {
 	
 	}
 
+
+	void OnTriggerEnter(Collider col){
+		if (col.gameObject.tag == "Enemy") {
+			Debug.Log ("Trigger!");
+			this.gameObject.GetComponent<HudController> ().WarningOn();
+
+		}
+
+
+	}
+
+	void OnTriggerExit(Collider col){
+		if (col.gameObject.tag == "Enemy") {
+
+			this.gameObject.GetComponent<HudController> ().WarningOff();
+
+		}
+
+
+	}
+
 	void Update ()
 	{
+
+		closestEnemy = Controller.gameObject.GetComponent<GameController> ().GetClosestEnemy (this.gameObject);
+		Debug.Log (closestEnemy.transform);
+		Ray rayTest = new Ray(PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position);
+		RaycastHit rayHit;
+		if (Physics.Raycast (rayTest, out rayHit)) {
+			Debug.Log ("uhhh");
+			this.gameObject.GetComponent<HudController> ().Target.gameObject.transform.position = rayHit.collider.gameObject.transform.position;
+		}
+
+		Debug.DrawRay( PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position, Color.blue);
+
+
+
 		if (GunNum == 1) {
 			if (Input.GetButton ("Fire1")) {
 
@@ -102,10 +142,4 @@ public class Player : MonoBehaviour {
 }
 	 //Use this for initialization
 
-//	
-//	// Update is called once per frame
-//	void Update () {
-//		
-//		transform.LookAt(mycam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mycam.nearClipPlane)), Vector3.up);
-//	}
-//}
+

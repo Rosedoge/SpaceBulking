@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 
 
 	[SerializeField] GameObject[] Spawners;
 	GameObject[] Smoke;
 	public  GameObject Player;
-
+	public List<GameObject> enemies;
 	bool testTrigger = false;
 	float timer;
 	float Enemytimer;
@@ -16,7 +16,27 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		Smoke = GameObject.FindGameObjectsWithTag ("Smoke");
 		//Spawners = GameObject.FindGameObjectsWithTag ("Spawner");
+		enemies = new List<GameObject>();
+		enemies.Add (GameObject.FindGameObjectWithTag ("Enemy"));
 	}
+
+	public Transform GetClosestEnemy(GameObject player)
+	{
+		Transform tMin = null;
+		float minDist = Mathf.Infinity;
+		Vector3 currentPos = player.gameObject.transform.position;
+		foreach (GameObject t in enemies)
+		{
+			float dist = Vector3.Distance(t.gameObject.transform.position, currentPos);
+			if (dist < minDist)
+			{
+				tMin = t.gameObject.transform;
+				minDist = dist;
+			}
+		}
+		return tMin; //closet enemy Transform it'll do
+	}
+
 	
 	// Update is called once per frame
 	void Update () {
