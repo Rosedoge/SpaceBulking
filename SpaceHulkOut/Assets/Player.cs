@@ -9,9 +9,14 @@ public class Player : MonoBehaviour {
 	public GameObject BulletPrefab;
 	public GameObject PlayerCam;
 	public GameObject Player4Nav;
-	public GameObject Loc2;
+	public GameObject Loc2,Loc3;
 	public GameObject Flamethrower;
 	public GameObject Controller;
+
+	public bool _____ ;
+
+	public AudioClip GunSound;
+	public AudioClip Flame;
 	Transform closestEnemy;
 	int GunNum = 0; //0 = mg 1 = flamethrower :^)
 	//bool shooting = false;
@@ -52,25 +57,24 @@ public class Player : MonoBehaviour {
 	void Update ()
 	{
 
-		closestEnemy = Controller.gameObject.GetComponent<GameController> ().GetClosestEnemy (this.gameObject);
-		Debug.Log (closestEnemy.transform);
-		Ray rayTest = new Ray(PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position);
-		RaycastHit rayHit;
-		if (Physics.Raycast (rayTest, out rayHit)) {
-			Debug.Log ("uhhh");
-			this.gameObject.GetComponent<HudController> ().Target.gameObject.transform.position = rayHit.collider.gameObject.transform.position;
-		}
-
-		Debug.DrawRay( PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position, Color.blue);
-
-
+//		closestEnemy = Controller.gameObject.GetComponent<GameController> ().GetClosestEnemy (this.gameObject);
+//		Debug.Log (closestEnemy.transform);
+//		Ray rayTest = new Ray(PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position);
+//		RaycastHit rayHit;
+//		if (Physics.Raycast (rayTest, out rayHit)) {
+//			//Debug.Log ("uhhh");
+//			this.gameObject.GetComponent<HudController> ().Target.gameObject.transform.position = rayHit.collider.gameObject.transform.position;
+//		}
+//
+//		Debug.DrawRay( PlayerCam.gameObject.transform.position,closestEnemy.position-PlayerCam.gameObject.transform.position, Color.blue);
+//
+//
 
 		if (GunNum == 1) {
 			if (Input.GetButton ("Fire1")) {
-
-
 				Flamethrower.gameObject.GetComponent<ParticleSystem> ().Play ();
 				Flamethrower.gameObject.GetComponent<ParticleSystem> ().loop = true;
+				this.gameObject.GetComponent<AudioSource> ().Play ();
 			} else if (Input.GetButtonUp ("Fire1")) {
 				Flamethrower.gameObject.GetComponent<ParticleSystem> ().loop = false;
 			}
@@ -94,6 +98,12 @@ public class Player : MonoBehaviour {
 		if (Location == 1) {
 			Player4Nav.gameObject.GetComponent<NavMeshAgent> ().destination = Loc2.gameObject.transform.position;
 			GunNum = 1;
+			this.gameObject.GetComponent<AudioSource> ().clip = Flame;
+		}
+		if (Location == 2) {
+			Player4Nav.gameObject.GetComponent<NavMeshAgent> ().destination = Loc3.gameObject.transform.position;
+			GunNum =0;
+			this.gameObject.GetComponent<AudioSource> ().clip = GunSound;
 		}
 
 	}

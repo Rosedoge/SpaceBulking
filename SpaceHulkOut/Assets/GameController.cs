@@ -52,9 +52,9 @@ public class GameController : MonoBehaviour {
 
 		}
 		//Debug.Log ("killed: " + killed);
-		if (killed >= 2 && !testTrigger) {
+		if (killed >= 10 && !testTrigger) {
 			Player.gameObject.GetComponent<Player> ().MoveOn (levelNum += 1);
-			testTrigger = true;
+			killed = 0;;
 		}
 	}
 
